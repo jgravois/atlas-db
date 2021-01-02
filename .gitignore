@@ -1,0 +1,5 @@
+pg-env.list
+pgadmin-env.list
+
+node_modules/
+.env
