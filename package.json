@@ -19,8 +19,11 @@
   "homepage": "https://github.com/jgravois/atlas-db#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "finale-rest": "^1.1.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "restify": "^8.5.1",
+    "restify-cors-middleware": "^1.1.1",
     "sequelize": "^6.3.5"
   }
 }
