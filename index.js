@@ -1,34 +1,11 @@
-require('dotenv').config()
 const { Sequelize, Model, DataTypes } = require('sequelize')
 const finale = require('finale-rest')
 
-const uri = `postgres://${process.env.ATLAS_DB_USER}:${process.env.ATLAS_DB_PASS}@localhost:5433/${process.env.ATLAS_DB}`
+const { API_PORT, ATLAS_DB_URI } = require('./config/')
 
-const sequelize = new Sequelize(uri)
+const sequelize = new Sequelize(ATLAS_DB_URI)
 
-const PORT = process.env.ATLAS_DB_PORT || 3001
-
-class JournalEntry extends Model {}
-
-JournalEntry.init({
-  // Model attributes are defined here
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    autoIncrement: true
-  },
-  memo: {
-    type: DataTypes.STRING
-  },
-  geom: {
-    type: DataTypes.GEOMETRY
-  }
-}, {
-  // Other model options go here
-  sequelize, // We need to pass the connection instance
-  modelName: 'JournalEntry' // We need to choose the model name
-});
+const models = require('./models')
 
 const restify = require('restify');
 const corsMiddleware = require('restify-cors-middleware');
@@ -56,13 +33,14 @@ finale.initialize({
   sequelize
 });
 
+
 // Create REST resource
 finale.resource({
-  model: JournalEntry,
-  endpoints: ['/journal-entries', '/journal-entries/:id']
+  model: models.Journal,
+  endpoints: ['/journals', '/journals/:id']
 });
 
 // calling sequelize.sync() blows away the table each time the server restarts
-server.listen(PORT, function() {
-  console.log(`listening at http://localhost:${PORT}`);
+server.listen(API_PORT, function() {
+  console.log(`listening at http://localhost:${API_PORT}`);
 });

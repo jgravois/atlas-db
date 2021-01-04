@@ -5,7 +5,11 @@
   "description": "backend for atlas",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
+    "seed": "sequelize db:seed:all",
+    "seed:undo": "sequelize db:seed:all:undo"
   },
   "repository": {
     "type": "git",
@@ -25,5 +29,8 @@
     "restify": "^8.5.1",
     "restify-cors-middleware": "^1.1.1",
     "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
   }
 }
